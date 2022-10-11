@@ -1,0 +1,21 @@
+<%- include("./partials/header")%>
+<%- include("./partials/footer")%>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand mx-3" href="/">ToDo App</a>
+      <div style="color:#fff"><%= user.firstName + " " + user.lastName %></div>
+      <a href="logout" id="logout">Log out</a>
+    </div>
+  
+</nav>
+<h1 style="color:#fff; text-align:center">Admin Page</h1>
+<h3 style="color:#fff; text-align:center">ALL USERS TODOS ARE SHOWN BELOW</h3>
+<ul class="list-group my-5">
+    <% if(typeof todo){ %>
+        <% todo.forEach(todos => { %>
+            <li class="list-group-item">
+                <%= todos.todo %>
+            </li>
+        <%})%>
+    <%}%>
+</ul>

@@ -1,0 +1,50 @@
+<%- include("./partials/header")%>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand mx-3" href="/">ToDo App</a>
+      <div style="color:#fff"><%= user.firstName + " " + user.lastName %></div>
+      <a href="logout" id="logout">Log out</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <form action="/add/todo" method="POST" class="d-flex">
+        <input type="text" name="todo" class="form-control" placeholder="Enter ToDo">
+        <input type="submit" value="Add ToDo" class="btn btn-md btn-primary mx-2">
+    </form>
+
+    <ul class="list-group my-5">
+        <% if(typeof todo){ %>
+            <% todo.forEach(todos => { %>
+                <li class="list-group-item">
+                    <%= todos.todo %>
+                    <a data-id="<%= todos._id %>" onclick="deleteFunction(this)" class="btn btn-danger btn-sm" style="margin-left: 16px; float: right; padding-inline: 18px;">Delete</a>
+                    <a data-id="<%= todos._id %>" data-todo="<%= todos.todo %>" onclick="getUpdateId(this)" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" style="float: right; padding-inline: 25px;">Edit</a>
+                </li>
+            <%})%>
+        <%}%>
+    </ul>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-block: 0.75rem; border: none;">
+                <h5 class="modal-title" id="exampleModalLabel">Edit ToDo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="margin-top: 10px; padding-top: 0.75rem; padding-bottom: 2.25rem;">
+                <form id="edit_form" onsubmit="editFunction(this)" action="" class="d-flex">
+                    <input type="text" id="edit_field" name="todo" class="form-control" placeholder="Edit ToDo">
+                    <button type="submit" class="btn btn-primary mx-2" style="padding-inline: 30px;">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("./partials/footer")%>
